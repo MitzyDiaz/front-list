@@ -1,0 +1,36 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="front-list">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>Hello [[prop1]]!</h2>
+  </template>
+
+  <script>
+    /**
+     * `front-list`
+     * lista de elementos
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class FrontList extends Polymer.Element {
+      static get is() { return 'front-list'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'front-list'
+          }
+        };
+      }
+    }
+
+    window.customElements.define(FrontList.is, FrontList);
+  </script>
+</dom-module>

@@ -1,36 +1,116 @@
 <link rel="import" href="../polymer/polymer-element.html">
 
 <dom-module id="front-list">
-  <template>
+    <template>
     <style>
       :host {
         display: block;
       }
-    </style>
-    <h2>Hello [[prop1]]!</h2>
-  </template>
-
-  <script>
-    /**
-     * `front-list`
-     * lista de elementos
-     *
-     * @customElement
-     * @polymer
-     * @demo demo/index.html
-     */
-    class FrontList extends Polymer.Element {
-      static get is() { return 'front-list'; }
-      static get properties() {
-        return {
-          prop1: {
-            type: String,
-            value: 'front-list'
-          }
-        };
+      .todo-container {
+        width: 71.3%;
+        margin: 0 auto;
+        display: block;
+        justify-content: center;
+        align-items: center;
+        background: white;
       }
+
+      .todo-list {
+          width: 96%;
+          padding: 20px;
+          list-style: none;
+          color: black;
+          display:block;
+          border-bottom: 1px solid gray;
+      }
+
+    .todo-remove-btn {
+        padding: 0;
+        width: 2rem;
+        background: transparent;
+        border-color: transparent;
+        outline: none;
+        cursor: pointer;
+        transition: all 0.5s ease;
     }
 
-    window.customElements.define(FrontList.is, FrontList);
-  </script>
+    .todo-remove-btn:focus {
+        outline: none;
+    }
+
+    .todo-remove-btn:hover{
+        background-color: white;
+        border-radius: 6px;
+
+    }
+
+    .todo-remove-btn {
+        float: right;
+    }
+
+    .trash-btn {
+        width: 2rem;
+        background: transparent;
+        border-color: transparent;
+        outline: none;
+        cursor: pointer;
+        transition: all 0.5s ease;
+    }
+
+    .trash-btn:hover {
+        background-color: rgb(255, 103, 103);
+        border-radius: 99px;
+    }
+
+    .trash-btn:focus {
+        outline: none;
+    }
+
+    #remove {
+        pointer-events: none;
+    }
+
+    </style>
+    <div class="todo-container">
+      <template is="dom-repeat" items="{{collection}}" as="code">
+          <div class="todo-list">
+            {{code.descripcion}}
+            <button class="todo-remove-btn" on-click="borrar">
+              <img src="img/remove.svg" style="width: 28px;" class="trash-btn" id="remove">
+            </button>
+          </div>
+      </template>
+    </div>
+    </template>
+
+    <script>
+        /**
+         * `front-list`
+         * lista de elementos
+         *
+         * @customElement
+         * @polymer
+         * @demo demo/index.html
+         */
+        class FrontList extends Polymer.Element {
+            static get is() {
+                return 'front-list';
+            }
+            static get properties() {
+                return {
+                    prop1: {
+                        type: String,
+                        value: 'front-list'
+                    },
+                    collection: Array
+                };
+            }
+
+            borrar() {
+                alert("se supone deberia borrar xD");
+            }
+        }
+
+        window.customElements.define(FrontList.is, FrontList);
+    </script>
 </dom-module>

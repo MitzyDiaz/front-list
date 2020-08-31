@@ -15,7 +15,7 @@
         background: white;
       }
 
-      .todo-list {
+      .todolist {
           width: 96%;
           padding: 20px;
           list-style: none;
@@ -69,18 +69,48 @@
     #remove {
         pointer-events: none;
     }
+    .encab {
+        width: 70%;
+        height: 3rem;
+        margin: 0 auto;
+        border: 1.5px solid #fff;
+        padding: 0.5rem;
+        border-radius: 6px 6px 0px 0px;
+        background: rgba(0, 123, 255, .5);
+        color: white;
+    }
+
+    .mensaje{
+    width: 71.3%;
+    text-align: center;
+    margin: 0 auto;
+    color: black;
+    }
 
     </style>
-    <div class="todo-container">
-      <template is="dom-repeat" items="{{collection}}" as="code">
-          <div class="todo-list">
-            {{code.descripcion}}
-            <button class="todo-remove-btn" on-click="borrar">
-              <img src="img/remove.svg" style="width: 28px;" class="trash-btn" id="remove">
-            </button>
-          </div>
-      </template>
+    <div class="encab">
+        ToDo List by Iron Bit
+        <button class="todo-remove-btn"><img src="https://firebasestorage.googleapis.com/v0/b/front-test-mitzy.appspot.com/o/recycle-bin.svg?alt=media&token=61978812-9a26-4902-87b1-3d73a869ee19" width="30rem" on-click="borrarTodo"></button>
     </div>
+
+    <template is="dom-if" if="[[!collection.length]]">
+        <div class="mensaje" style="background: white; border-radius: 0px 0px 6px 6px;">
+            {{notodos}}
+        </div>
+    </template>
+
+    <template is="dom-if" if="{{collection.length}}">
+        <div class="todo-container">
+            <template is="dom-repeat" items="{{collection}}" as="code">
+                <div class="todolist">
+                    {{code.descripcion}}
+                    <button class="todo-remove-btn" on-click="borrar">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/front-test-mitzy.appspot.com/o/remove.svg?alt=media&token=bc2a1e0b-73d9-44f5-b9b4-8e7353ed7544" style="width: 28px;" class="trash-btn" id="remove">
+                    </button>
+                </div>
+            </template>
+    </div>
+    </template>
     </template>
 
     <script>
@@ -98,19 +128,27 @@
             }
             static get properties() {
                 return {
-                    prop1: {
+                    collection: Array,
+                    notodos: {
                         type: String,
-                        value: 'front-list'
-                    },
-                    collection: Array
+                        value: "No hay ToDo's, tomate un café"
+                    }
                 };
             }
 
-            borrar() {
-                alert("se supone deberia borrar xD");
+            borrar(e) {
+                const item = e.target;
+                const todo = item.parentElement;
+                todo.remove();
+                //todo.remove();
+            }
+            borrarTodo() {
+                if (confirm("¿Estas seguro que deseas borrar toda la lista?")) {
+                    localStorage.clear();
+                    location.reload();
+                }
             }
         }
-
         window.customElements.define(FrontList.is, FrontList);
     </script>
 </dom-module>
